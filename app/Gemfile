@@ -1,0 +1,12 @@
+source "https://rubygems.org"
+
+gem 'puma'
+gem 'sinatra'
+gem 'sinatra-cross_origin'
+gem 'activerecord'
+gem 'activerecord-postgis-adapter'
+gem 'activesupport'
+gem 'sinatra-activerecord'
+gem 'pg'
+gem 'json'
+gem 'rake'

@@ -1,0 +1,13 @@
+development: &default
+  adapter: postgis
+  encoding: utf8
+  template: template_postgis
+  database: crimes
+  pool: 5
+  username: docker
+  password: docker
+  host: db
+
+test:
+  <<: *default
+  database: crimes_test

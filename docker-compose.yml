@@ -1,0 +1,39 @@
+api:
+  build: ./app/
+  links:
+    - db:db
+  ports:
+    - 3332:9292
+  volumes_from:
+    - data
+
+db:
+  image: kartoza/postgis
+  ports:
+    - 25433:5432
+  volumes_from:
+    - dbdata
+
+data:
+  build: ./data/
+  command: true
+
+dbdata:
+  image: kartoza/postgis
+  volumes:
+    - /var/lib/postgresql
+  command: true
+
+backupdb:
+  image: kartoza/postgis
+  command: true
+  links:
+    - db:db
+  volumes:
+    - $HOME/crime-api:/backup
+  environment:
+    - PGHOST=db
+    - PGDATABASE=gis
+    - PGUSER=docker
+    - PGPASSWORD=docker
+
