@@ -10,7 +10,7 @@ class CreateCrimes < ActiveRecord::Migration
       t.string :time
       t.integer :hour
       t.boolean :is_night
-      t.string :type
+      t.string :crime_type
       t.string :address
       t.string :city
       t.string :segment_id
