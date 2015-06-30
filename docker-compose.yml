@@ -17,6 +17,8 @@ db:
 data:
   build: ./data/
   command: true
+  volumes:
+    - data
 
 dbdata:
   image: kartoza/postgis
