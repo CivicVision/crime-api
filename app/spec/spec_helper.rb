@@ -7,14 +7,9 @@ ENV['RACK_ENV'] = 'test'
 
 require File.expand_path '../../server.rb', __FILE__
 
-
-module RSpecMixin
-  include Rack::Test::Methods
-  def app() Sinatra::Application end
-end
-
 RSpec.configure do |config|
-
+  def app() Sinatra::Application end
+  config.include Rack::Test::Methods
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
