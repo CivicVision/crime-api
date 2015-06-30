@@ -9,5 +9,5 @@ development: &default
   host: db
 
 test:
-  <<: *default
-  database: crimes_test
+  adapter: sqlite3
+  database: crimes_test.sqlite3

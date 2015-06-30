@@ -10,3 +10,11 @@ gem 'sinatra-activerecord'
 gem 'pg'
 gem 'json'
 gem 'rake'
+
+group :development, :test do
+  gem 'pry'
+  gem 'rack-test'
+  gem 'rspec'
+  gem 'sqlite3'
+  gem 'database_cleaner'
+end
