@@ -1,2 +1,53 @@
 require './server'
 require 'sinatra/activerecord/rake'
+require 'csv'
+
+namespace :import do
+  task :districts do
+    CSV.foreach("/data/council-district.csv", headers: true) do |row|
+      d = District.find_by_code(row["code"]) || District.new
+      d.name = row["name"]
+      d.code = row["code"]
+      d.number = row["scode"]
+      d.save!
+    end
+  end
+  task :neighborhood do
+    CSV.foreach("/data/neighborhoods.csv", headers: true) do |row|
+      n = Neighborhood.find_by_code(row["code"]) || Neighborhood.new
+      n.name = row["name"]
+      n.code = row["scode"]
+      n.save!
+    end
+  end
+  task :communities do
+    CSV.foreach("/data/communities.csv", headers: true) do |row|
+      c = Community.find_by_code(row["code"]) || Community.new
+      c.name = row["name"]
+      c.code = row["scode"]
+      c.save!
+    end
+  end
+  task :crimes do
+    Crime.destroy_all
+    CSV.foreach("/data/crimes-2007-2013.csv", headers: true) do |row|
+      district = District.find_by_code(row["council"])
+      neighborhood = Neighborhood.find_by_code(row["nbrhood"])
+      community = Community.find_by_code(row["community"])
+      c = Crime.new
+      c.district = district
+      c.neighborhood = neighborhood
+      c.community = community
+      c.year = row["year"]
+      c.month = row["month"]
+      c.day = row["day"]
+      c.week = row["week"]
+      c.dow = row["dow"]
+      c.hour = row["hour"]
+      c.crime_type = row["type"]
+      c.desc = row["desc"]
+      c.save!
+    end
+  end
+end
+
